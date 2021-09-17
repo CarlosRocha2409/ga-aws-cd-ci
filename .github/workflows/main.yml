@@ -21,7 +21,7 @@ name: ga-aws-test
             username: ubuntu
             envs: TITLE,DESCRIPTION,PORT
             script: | 
-              cd /home/ec2-user/ga-aws-cd-ci
+              cd /ga-aws-cd-ci
               touch .env
               echo TITLE >> .env
               echo DESCRIPTION >> .env
