@@ -23,8 +23,8 @@ jobs:
           script: |
             cd /ga-aws-cd-ci
             touch .env
-            echo TITLE >> .env
-            echo DESCRIPTION >> .env
-            echo PORT >> .env
+            echo TITLE=$TITLE >> .env
+            echo DESCRIPTION=$DESCRIPTION >> .env
+            echo PORT=$PORT >> .env
             pm2 kill
             pm2 start index.js
