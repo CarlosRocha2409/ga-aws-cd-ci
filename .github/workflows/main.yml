@@ -1,0 +1,30 @@
+name: ga-aws-test
+
+  on:
+    push:
+      branches:[main]
+
+  jobs:
+    deployment:
+      run-on: ubuntu-latest
+      steps: 
+        - uses: actions/checkout@v2
+        - name: SSH and Deploy test
+          uses: appleboy/ssh-action@main
+          env:
+            TITLE: ${{secrets.TITLE}}
+            DESCRIPTION: ${{secrets.DESCRIPTION}}
+            PORT: ${{secrets.PORT}}
+          with:
+            host: ${{secrets.PROD_SERVER}}  
+            key: ${{secrets.SSH_KEY}}
+            username: ubuntu
+            envs: TITLE,DESCRIPTION,PORT
+            script: | 
+              cd /home/ec2-user/ga-aws-cd-ci
+              touch .env
+              echo TITLE >> .env
+              echo DESCRIPTION >> .env
+              echo PORT >> .env
+              pm2 kill
+              pm2 start index.js
