@@ -15,18 +15,16 @@ jobs:
           TITLE: ${{ secrets.TITLE }}
           DESCRIPTION: ${{ secrets.DESCRIPTION }}
           PORT: ${{ secrets.PORT }}
-        with:
-          host: ${{ secrets.PROD_SERVER }}
-          key: ${{ secrets.SSH_KEY }}
-          username: ec2-user
-          envs: TITLE,DESCRIPTION,PORT
-
-          script: |
-            cd /ga-aws-cd-ci
-            [ -e .env ] && rm .env
-            touch .env
-            echo TITLE=$TITLE >> .env
-            echo DESCRIPTION=$DESCRIPTION >> .env
-            echo PORT=$PORT >> .env
-            pm2 kill
-            pm2 start index.js
+          PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          HOSTNAME: ${{ secrets.PROD_SERVER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${HOSTNAME} '
+          cd /ga-aws-cd-ci
+          [ -e .env ] && rm .env
+          touch .env
+          echo TITLE=$TITLE >> .env
+          echo DESCRIPTION=$DESCRIPTION >> .env
+          echo PORT=$PORT >> .env
+          pm2 kill
+          pm2 start index.js
