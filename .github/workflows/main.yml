@@ -10,19 +10,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: SSH and Deploy test
+        uses: appleboy/ssh-action@master
         env:
           TITLE: ${{ secrets.TITLE }}
           DESCRIPTION: ${{ secrets.DESCRIPTION }}
           PORT: ${{ secrets.PORT }}
-          PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          HOSTNAME: ${{ secrets.PROD_SERVER }}
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ${PRIVATE_KEY} ec2-user@${HOSTNAME} 
-          cd /ga-aws-cd-ci
-          [ -e .env ] && rm .env
-          touch .env
-          echo TITLE=$TITLE >> .env
-          echo DESCRIPTION=$DESCRIPTION >> .env
-          echo PORT=$PORT >> .env
-          pm2 kill
-          pm2 start index.js
+        with:
+          host: ${{ secrets.PROD_SERVER }}
+          key: ${{ secrets.SSH_KEY }}
+          username: ec2-user
+          envs: TITLE,DESCRIPTION,PORT
+
+          script: |
+            cd /ga-aws-cd-ci
+            [ -e .env ] && rm .env
+            touch .env
+            echo TITLE=$TITLE >> .env
+            echo DESCRIPTION=$DESCRIPTION >> .env
+            echo PORT=$PORT >> .env
+            pm2 kill
+            pm2 start index.js
