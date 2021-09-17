@@ -20,9 +20,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           username: ubuntu
           envs: TITLE,DESCRIPTION,PORT
-          [ -e .env ] && rm .env
+
           script: |
             cd /ga-aws-cd-ci
+            [ -e .env ] && rm .env
             touch .env
             echo TITLE=$TITLE >> .env
             echo DESCRIPTION=$DESCRIPTION >> .env
