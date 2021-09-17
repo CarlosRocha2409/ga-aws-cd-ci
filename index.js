@@ -6,7 +6,9 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send(`<h1>${process.env.TITLE},</h2><p>${process.env.DESCRIPTION}</p>`);
+  res.send(
+    `<h1>${process.env.TITLE},</h2><p>${process.env.DESCRIPTION}</p> <h1>FUNCIONO</h1>`
+  );
 });
 
 app.get("/guitar", (req, res) => {
