@@ -17,7 +17,7 @@ jobs:
           HOST: ${{ secrets.PROD_SERVER }}
           KEY: ${{ secrets.SSH_KEY }}
         run: |
-          ssh -i $KEY ec2-user@$HOST
+          ssh -i ${KEY} ec2-user@${HOST}
           cd /ga-aws-cd-ci
           [ -e .env ] && rm .env
           touch .env
