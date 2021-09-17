@@ -14,10 +14,11 @@ jobs:
           TITLE: ${{ secrets.TITLE }}
           DESCRIPTION: ${{ secrets.DESCRIPTION }}
           PORT: ${{ secrets.PORT }}
-          HOST: ${{ secrets.PROD_SERVER }}
-          KEY: ${{ secrets.SSH_KEY }}
+          PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          HOSTNAME: ${{ secrets.PROD_SERVER }}
         run: |
-          ssh -i ${KEY} ec2-user@${HOST}
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${HOSTNAME} 
           cd /ga-aws-cd-ci
           [ -e .env ] && rm .env
           touch .env
