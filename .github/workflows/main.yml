@@ -1,7 +1,8 @@
 name: ga-aws-test
 
 on:
-  push: branches:[main]
+  push:
+    branches: [main]
 
 jobs:
   deployment:
