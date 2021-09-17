@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: SSH and Deploy test
         uses: appleboy/ssh-action@master
         env:
           TITLE: ${{ secrets.TITLE }}
@@ -18,7 +19,7 @@ jobs:
           host: ${{ secrets.PROD_SERVER }}
           username: ec2-user
           key: ${{ secrets.SSH_KEY }}
-          
+
           envs: TITLE,DESCRIPTION,PORT
 
           script: |
