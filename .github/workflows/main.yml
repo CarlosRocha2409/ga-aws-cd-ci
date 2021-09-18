@@ -29,6 +29,6 @@ jobs:
             touch .env
             echo TITLE=$TITLE >> .env
             echo DESCRIPTION=$DESCRIPTION >> .env
-            echo PORT=$PORT >> .env
+            echo PORT=$PROD_PORT >> .env
             pm2 kill
             pm2 start index.js
