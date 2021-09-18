@@ -21,9 +21,9 @@ jobs:
           envs: TITLE,DESCRIPTION
           script: |
             cd ga-aws-cd-ci/
-            ls
-            [ -e .env ] && rm .env
             touch .env
             echo TITLE=$TITLE >> .env
             echo DESCRIPTION=$DESCRIPTION >> .env
             echo PORT=$PORT >> .env
+            pm2 kill
+            pm2 restart index.js
