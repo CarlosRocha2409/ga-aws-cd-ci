@@ -14,12 +14,11 @@ jobs:
         env:
           TITLE: ${{ secrets.TITLE }}
           DESCRIPTION: ${{ secrets.DESCRIPTION }}
-          PORT: ${{ secrets.PORT }}
         with:
           host: ${{ secrets.PROD_SERVER }}
           username: ubuntu
           key: ${{ secrets.SSH_KEY }}
-          envs: TITLE,DESCRIPTION,PORT
+          envs: TITLE,DESCRIPTION
           script: |
             cd /ga-aws-cd-ci
             [ -e .env ] && rm .env
