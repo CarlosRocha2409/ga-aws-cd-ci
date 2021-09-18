@@ -16,10 +16,10 @@ jobs:
           DESCRIPTION: ${{ secrets.DESCRIPTION }}
           PORT: ${{ secrets.PORT }}
         with:
+          port: 22
           host: ${{ secrets.PROD_SERVER }}
           username: ubuntu
           key: ${{ secrets.SSH_KEY }}
-          port: 22
           envs: TITLE,DESCRIPTION,PORT
           script: |
             cd /ga-aws-cd-ci
