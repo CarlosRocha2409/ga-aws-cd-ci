@@ -29,5 +29,5 @@ app.get("/guitar", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`it WORKS!`);
+  console.log(`it WORKS! ${process.env.PORT}`);
 });
