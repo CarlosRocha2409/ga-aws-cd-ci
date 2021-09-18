@@ -22,9 +22,10 @@ jobs:
           envs: TITLE,DESCRIPTION
           script: |
             cd ga-aws-cd-ci/
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            npm install pm2 -g
+            export NVM_DIR="$HOME/.nvm"	
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # loads nvm	
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  
+            npm install pm2@latest -g
             touch .env
             echo TITLE=$TITLE >> .env
             echo DESCRIPTION=$DESCRIPTION >> .env
