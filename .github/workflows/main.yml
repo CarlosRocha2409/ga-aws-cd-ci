@@ -29,6 +29,6 @@ jobs:
             echo PORT=$PORT >> .env
             pm2 kill
             pm2 start index.js
-          name: See variables
-          run: echo "${{ secrets.SSH_KEY }}"
-            echo "${{ secrets.PROD_SERVER }}"
+      - name: See variables
+        run: echo "${{ secrets.SSH_KEY }}"
+          echo "${{ secrets.PROD_SERVER }}"
