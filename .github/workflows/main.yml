@@ -20,7 +20,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           envs: TITLE,DESCRIPTION
           script: |
-            cd /ga-aws-cd-ci
+            cd ga-aws-cd-ci/
+            ls
             [ -e .env ] && rm .env
             touch .env
             echo TITLE=$TITLE >> .env
