@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: SSH and Deploy test
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.0.8
         env:
           TITLE: ${{ secrets.TITLE }}
           DESCRIPTION: ${{ secrets.DESCRIPTION }}
