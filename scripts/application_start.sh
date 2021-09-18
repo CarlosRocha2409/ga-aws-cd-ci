@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #give permission for everything in the ga-aws-cd-ci directory
-sudo chmod -R 777 /home/ec2-user/ga-aws-cd-ci
+sudo chmod -R 777 /home/ubuntu/ga-aws-cd-ci
 
 #navigate into our working directory where we have all our github files
-cd /home/ec2-user/ga-aws-cd-ci
+cd /home/ubuntu/ga-aws-cd-ci
 
 #add npm and node to path
 export NVM_DIR="$HOME/.nvm"	
