@@ -10,22 +10,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: SSH and Deploy test
-        uses: appleboy/ssh-action@master
         env:
           TITLE: ${{ secrets.TITLE }}
           DESCRIPTION: ${{ secrets.DESCRIPTION }}
           PORT: ${{ secrets.PORT }}
-        with:
-          host: ${{ secrets.PROD_SERVER }}
-          username: ubuntu
-          key: ${{ secrets.SSH_KEY }}
-          envs: TITLE,DESCRIPTION,PORT
-          script: |
-            cd /ga-aws-cd-ci
-            [ -e .env ] && rm .env
-            touch .env
-            echo TITLE=$TITLE >> .env
-            echo DESCRIPTION=$DESCRIPTION >> .env
-            echo PORT=$PORT >> .env
-            pm2 kill
-            pm2 start index.js
+          USERNAME: ubuntu
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          HOST: ${{ secrets.PROD_SERVER }}
+        run: |
+          echo "$SSH_KEY" > staging.key
+          chmod 600 staging.key
+          ssh -i staging.key ubuntu@$HOST
+          cd /ga-aws-cd-ci
+          [ -e .env ] && rm .env
+          touch .env
+          echo TITLE=$TITLE >> .env
+          echo DESCRIPTION=$DESCRIPTION >> .env
+          echo PORT=$PORT >> .env
+          pm2 kill
+          pm2 start index.js
